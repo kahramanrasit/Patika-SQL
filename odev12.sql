@@ -21,5 +21,12 @@
       WHERE rental_rate = (SELECT MIN(rental_rate) FROM film) AND replacement_cost = (SELECT MIN(replacement_cost) FROM film);
 
 
+
+
 -- 4. payment tablosunda en fazla sayıda alışveriş yapan müşterileri(customer) sıralayınız.
 
+      SELECT customer.first_name, customer.last_name, customer.customer_id, COUNT(*) FROM payment
+      JOIN customer ON customer.customer_id = payment.customer_id
+      GROUP BY customer.customer_id
+      ORDER BY COUNT(*) DESC
+      LIMIT 5 -- En fazla alışveriş yapan ilk beş müşteri sıralandı.
